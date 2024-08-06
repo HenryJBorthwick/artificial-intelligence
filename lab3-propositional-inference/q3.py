@@ -20,6 +20,7 @@ def value(formula, interpretation):
     arguments = {atom: interpretation[atom] for atom in atoms(formula)}
     return formula(**arguments)
 
+
 def interpretations(atoms):
     # List of sorted atoms to ensure alphabetical order. Columns of truth table.
     sorted_atoms = sorted(atoms, key=lambda atom: atom)
@@ -42,4 +43,43 @@ def interpretations(atoms):
 
     return truth_table_dict_list
 
+
 def models(knowledge_base):
+    # Get all atoms in the knowledge base
+    all_atoms = set()
+    for formula in knowledge_base:
+        # Update set to include atoms from each formula
+        all_atoms.update(atoms(formula))
+
+    # Generate all the possible permutations
+    all_interpretations = interpretations(all_atoms)
+
+    valid_models = []
+    for interpretation in all_interpretations:
+        if all(value(formula, interpretation) for formula in knowledge_base):
+            valid_models.append(interpretation)
+
+    return valid_models
+
+
+def main():
+    # test 1
+    knowledge_base = {
+        lambda a, b: a and not b,
+        lambda c: c
+    }
+
+    print(models(knowledge_base))
+
+    # test 2
+    knowledge_base = {
+        lambda a, b: a and not b,
+        lambda c, d: c or d
+    }
+
+    for interpretation in models(knowledge_base):
+        print(interpretation)
+
+
+if __name__ == '__main__':
+    main()
