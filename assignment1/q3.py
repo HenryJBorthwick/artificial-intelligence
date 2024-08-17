@@ -89,7 +89,7 @@ class RoutingGraph(Graph):
 
         return output
 
-    # ADDED FOR Q2
+    # ADDED FOR Q3
     def estimated_cost_to_goal(self, node):
         col1, row1, fuel = node
         dists = []

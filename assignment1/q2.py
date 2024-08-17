@@ -103,13 +103,14 @@ class AStarFrontier(Frontier):
         self.expanded = []
 
     def add(self, path):
+        # PATH COST
         cost = 0
         for arc in path:
             cost += arc.cost
+
         h = self.map_graph.estimated_cost_to_goal(path[-1].head)
-        if path[-1].head not in self.visited:
-            heapq.heappush(self.container, (cost + h, self.order, path))
-            self.visited.add(path[-1].head)
+
+        heapq.heappush(self.container, (cost + h, self.order, path))
         self.order += 1
 
     def __iter__(self):
@@ -118,9 +119,12 @@ class AStarFrontier(Frontier):
     def __next__(self):
         while len(self.container) > 0:
             total, order, path = heapq.heappop(self.container)
-            self.expanded.append(path)
+            head = path[-1].head
 
-            return path
+            if head not in self.visited:
+                self.visited.add(head)
+                self.expanded.append(path)
+                return path
         else:
             raise StopIteration
 
@@ -140,18 +144,18 @@ class AStarFrontier(Frontier):
 
 
 # TEST 2
-map_str = """\
-+-------+
-|  GG   |
-|S    G |
-|  S    |
-+-------+
-"""
-
-map_graph = RoutingGraph(map_str)
-frontier = AStarFrontier(map_graph)
-solution = next(generic_search(map_graph, frontier), None)
-print_actions(solution)
+# map_str = """\
+# +-------+
+# |  GG   |
+# |S    G |
+# |  S    |
+# +-------+
+# """
+#
+# map_graph = RoutingGraph(map_str)
+# frontier = AStarFrontier(map_graph)
+# solution = next(generic_search(map_graph, frontier), None)
+# print_actions(solution)
 
 
 # TEST 3
@@ -263,7 +267,7 @@ print_actions(solution)
 # |         G|
 # +----------+
 # """
-
+#
 # map_graph = RoutingGraph(map_str)
 # frontier = AStarFrontier(map_graph)
 # solution = next(generic_search(map_graph, frontier), None)
