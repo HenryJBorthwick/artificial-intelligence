@@ -1,5 +1,5 @@
 import math
-from search import Graph, Arc
+from search import *
 
 CHECK_PROXIMITY = \
     [('N', -1, 0),
