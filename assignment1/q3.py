@@ -92,12 +92,24 @@ class RoutingGraph(Graph):
     # MODIFIED FOR Q3
     def estimated_cost_to_goal(self, node):
         col1, row1, fuel = node
-        dists = []
+        min_cost = float('inf')
+
         for goal_node in self.goal:
             col2, row2 = goal_node
-            manhattan_dist = abs(col1 - col2) + abs(row1 - row2)
-            dists.append(manhattan_dist * 5)
-        return min(dists)
+            # Compute differences
+            d_col = abs(col1 - col2)
+            d_row = abs(row1 - row2)
+
+            # Diagonal and straight line movement
+            diagonal_moves = min(d_col, d_row)
+            straight_moves = max(d_col, d_row) - diagonal_moves
+
+            # Cost with diagonal and straight moves
+            cost = diagonal_moves * 7 + straight_moves * 5
+
+            min_cost = min(min_cost, cost)
+
+        return min_cost
 
 
 class AStarFrontier(Frontier):
@@ -154,148 +166,148 @@ def print_map(map_graph, frontier, solution):
 
 
 # TEST 1
-# map_str = """\
-# +----------------+
-# |                |
-# |                |
-# |                |
-# |                |
-# |                |
-# |                |
-# |        S       |
-# |                |
-# |                |
-# |     G          |
-# |                |
-# |                |
-# |                |
-# +----------------+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++----------------+
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
+|        S       |
+|                |
+|                |
+|     G          |
+|                |
+|                |
+|                |
++----------------+
+"""
+
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 2
-# map_str = """\
-# +----------------+
-# |                |
-# |                |
-# |                |
-# |                |
-# |                |
-# |                |
-# |        S       |
-# |                |
-# |                |
-# |     G          |
-# |                |
-# |                |
-# |                |
-# +----------------+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# # changing the heuristic so the search behaves like LCFS
-# map_graph.estimated_cost_to_goal = lambda node: 0
-#
-# frontier = AStarFrontier(map_graph)
-#
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++----------------+
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
+|        S       |
+|                |
+|                |
+|     G          |
+|                |
+|                |
+|                |
++----------------+
+"""
+
+map_graph = RoutingGraph(map_str)
+# changing the heuristic so the search behaves like LCFS
+map_graph.estimated_cost_to_goal = lambda node: 0
+
+frontier = AStarFrontier(map_graph)
+
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 3 TO FIX
-# map_str = """\
-# +-------------+
-# | G         G |
-# |      S      |
-# | G         G |
-# +-------------+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++-------------+
+| G         G |
+|      S      |
+| G         G |
++-------------+
+"""
+
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 4
-# map_str = """\
-# +-------+
-# |     XG|
-# |X XXX  |
-# |  S    |
-# +-------+
-# """
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++-------+
+|     XG|
+|X XXX  |
+|  S    |
++-------+
+"""
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 5
-# map_str = """\
-# +--+
-# |GS|
-# +--+
-# """
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++--+
+|GS|
++--+
+"""
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 6
-# map_str = """\
-# +----+
-# |    |
-# | SX |
-# | X G|
-# +----+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++----+
+|    |
+| SX |
+| X G|
++----+
+"""
+
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 7 TO FIX
-# map_str = """\
-# +---------------+
-# |    G          |
-# |XXXXXXXXXXXX   |
-# |           X   |
-# |  XXXXXX   X   |
-# |  X S  X   X   |
-# |  X        X   |
-# |  XXXXXXXXXX   |
-# |               |
-# +---------------+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++---------------+
+|    G          |
+|XXXXXXXXXXXX   |
+|           X   |
+|  XXXXXX   X   |
+|  X S  X   X   |
+|  X        X   |
+|  XXXXXXXXXX   |
+|               |
++---------------+
+"""
+
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # TEST 8
-# map_str = """\
-# +---------+
-# |         |
-# |    G    |
-# |         |
-# +---------+
-# """
-#
-# map_graph = RoutingGraph(map_str)
-# frontier = AStarFrontier(map_graph)
-# solution = next(generic_search(map_graph, frontier), None)
-# print_map(map_graph, frontier, solution)
+map_str = """\
++---------+
+|         |
+|    G    |
+|         |
++---------+
+"""
+
+map_graph = RoutingGraph(map_str)
+frontier = AStarFrontier(map_graph)
+solution = next(generic_search(map_graph, frontier), None)
+print_map(map_graph, frontier, solution)
 
 
 # CUSTOM TEST 9
