@@ -1,7 +1,6 @@
 from search import *
 import heapq
 
-# from q1 import *
 CHECK_PROXIMITY = \
     [('N', -1, 0),
      ('NE', -1, 1),
@@ -21,29 +20,39 @@ class RoutingGraph(Graph):
             row = list(self.map_str[i])
             self.map_list.append(row)
 
+        # Determine the number of rows and columns in the map
         self.num_rows = len(self.map_list[0])
         self.num_cols = len(self.map_list)
+
+        # Lists to store the locations of agents, portals, and goals
         self.agent = []
         self.portal = []
         self.goal = []
+
+        # Populate the agent, portal, and goal lists based on map contents
         self.find_vals()
 
     def starting_nodes(self):
         return self.agent
 
     def find_vals(self):
+        # Loop through every cell in the map
         for col in range(self.num_cols):
             for row in range(self.num_rows):
 
+                # Store the location of portals
                 if self.map_list[col][row] == "P":
                     self.portal.append((col, row))
 
+                # Store the location of numeric agents (finite fuel)
                 if self.map_list[col][row].isnumeric():
                     self.agent.append((col, row, int(self.map_list[col][row])))
 
+                # Store the location of solar agents (unlimited fuel)
                 if self.map_list[col][row] == "S":
                     self.agent.append((col, row, float("inf")))
 
+                # Store the location of goals
                 if self.map_list[col][row] == "G":
                     self.goal.append((col, row))
 
@@ -52,11 +61,13 @@ class RoutingGraph(Graph):
         return (col, row) in self.goal
 
     def outgoing_arcs(self, tail_node):
+        # Generate possible arcs (moves) from the given position
         arcs = []
         initial_col, initial_row, fuel = tail_node
         tail = self.map_list[initial_col][initial_row]
 
         for direction, col, row in CHECK_PROXIMITY:
+            # Calculate the new position after moving in the specified direction
             new_col = initial_col + col
             new_row = initial_row + row
             head = self.map_list[new_col][new_row]
@@ -69,7 +80,7 @@ class RoutingGraph(Graph):
                 # Move with cost of 1 unit fuel
                 arcs.append(Arc(tail_node, (new_col, new_row, fuel - 1), direction, cost))
 
-        # Fuel station
+        # Fuel station and less than max fuel
         if tail == "F" and fuel < 9:
             arcs.append(Arc(tail_node, (initial_col, initial_row, 9), "Fuel up", 15))
 
@@ -114,10 +125,16 @@ class RoutingGraph(Graph):
 
 class AStarFrontier(Frontier):
     def __init__(self, map_graph):
+        # Init priority queue (heap)
         self.container = []
+        # For stability of priority queue
         self.order = 0
+
         self.map_graph = map_graph
+        # set to stop re-expanding
         self.visited = set()
+
+        # List to keep track of expanded paths
         self.expanded = []
 
     def add(self, path):
@@ -126,8 +143,10 @@ class AStarFrontier(Frontier):
         for arc in path:
             cost += arc.cost
 
+        # Get heuristic estimate
         h = self.map_graph.estimated_cost_to_goal(path[-1].head)
 
+        # Push path to priority queue w/priority of (cost + heuristic)
         heapq.heappush(self.container, (cost + h, self.order, path))
         self.order += 1
 
@@ -150,18 +169,23 @@ class AStarFrontier(Frontier):
 def print_map(map_graph, frontier, solution):
     path_trace = map_graph.map_list
 
+    # Mark all nodes that have been expanded during the search
     for path in frontier.expanded:
         for arc in path:
             col, row, fuel = arc.head
+            # Only mark free spaces (not goals or agents)
             if not map_graph.is_goal(arc.head) and arc.head not in map_graph.agent:
                 path_trace[col][row] = "."
 
+    # If a solution exists, mark the path from the start to the goal
     if solution != None:
         for arc in solution:
             col, row, fuel = arc.head
+            # Only mark free spaces (not goals or agents)
             if not map_graph.is_goal(arc.head) and arc.head not in map_graph.agent:
                 path_trace[col][row] = "*"
 
+    # Join each row and print the entire map as a string
     print("\n".join("".join(s) for s in path_trace))
 
 
@@ -219,7 +243,7 @@ solution = next(generic_search(map_graph, frontier), None)
 print_map(map_graph, frontier, solution)
 
 
-# TEST 3 TO FIX
+# TEST 3
 map_str = """\
 +-------------+
 | G         G |
@@ -275,7 +299,7 @@ solution = next(generic_search(map_graph, frontier), None)
 print_map(map_graph, frontier, solution)
 
 
-# TEST 7 TO FIX
+# TEST 7
 map_str = """\
 +---------------+
 |    G          |
