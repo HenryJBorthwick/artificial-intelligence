@@ -20,29 +20,39 @@ class RoutingGraph(Graph):
             row = list(self.map_str[i])
             self.map_list.append(row)
 
+        # Determine the number of rows and columns in the map
         self.num_rows = len(self.map_list[0])
         self.num_cols = len(self.map_list)
+
+        # Lists to store the locations of agents, portals, and goals
         self.agent = []
         self.portal = []
         self.goal = []
+
+        # Populate the agent, portal, and goal lists based on map contents
         self.find_vals()
 
     def starting_nodes(self):
         return self.agent
 
     def find_vals(self):
+        # Loop through every cell in the map
         for col in range(self.num_cols):
             for row in range(self.num_rows):
 
+                # Store the location of portals
                 if self.map_list[col][row] == "P":
                     self.portal.append((col, row))
 
+                # Store the location of numeric agents (finite fuel)
                 if self.map_list[col][row].isnumeric():
                     self.agent.append((col, row, int(self.map_list[col][row])))
 
+                # Store the location of solar agents (unlimited fuel)
                 if self.map_list[col][row] == "S":
                     self.agent.append((col, row, float("inf")))
 
+                # Store the location of goals
                 if self.map_list[col][row] == "G":
                     self.goal.append((col, row))
 
@@ -51,11 +61,13 @@ class RoutingGraph(Graph):
         return (col, row) in self.goal
 
     def outgoing_arcs(self, tail_node):
+        # Generate possible arcs (moves) from the given position
         arcs = []
         initial_col, initial_row, fuel = tail_node
         tail = self.map_list[initial_col][initial_row]
 
         for direction, col, row in CHECK_PROXIMITY:
+            # Calculate the new position after moving in the specified direction
             new_col = initial_col + col
             new_row = initial_row + row
             head = self.map_list[new_col][new_row]
@@ -68,7 +80,7 @@ class RoutingGraph(Graph):
                 # Move with cost of 1 unit fuel
                 arcs.append(Arc(tail_node, (new_col, new_row, fuel - 1), direction, cost))
 
-        # Fuel station
+        # Fuel station and less than max fuel
         if tail == "F" and fuel < 9:
             arcs.append(Arc(tail_node, (initial_col, initial_row, 9), "Fuel up", 15))
 
