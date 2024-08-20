@@ -15,9 +15,10 @@ canterbury_colouring = CSP(
         lambda selwyn, waimakariri: selwyn != waimakariri,
         })
 
-solutions = sorted(str(sorted(solution.items())) for solution
-                   in generate_and_test(canterbury_colouring))
-print("\n".join(solutions))
+# CHEAT SOLUTION CODE
+# solutions = sorted(str(sorted(solution.items())) for solution
+#                    in generate_and_test(canterbury_colouring))
+# print("\n".join(solutions))
 
 # TEST 1
 print(sorted(canterbury_colouring.var_domains['christchurch']))
