@@ -3,6 +3,7 @@ from q1 import generate_and_test
 
 
 crossword_puzzle = CSP(
+    # GOAL IS TO ADJUST THE DOMAIN TO PASS ALL TESTS
     var_domains={
         # read across:
         'across1': set("ant big bus car has".split()),
@@ -21,10 +22,10 @@ crossword_puzzle = CSP(
         })
 
 
-# HELPER CODE
-solutions = sorted(str(sorted(solution.items())) for solution
-                   in generate_and_test(crossword_puzzle))
-print("\n".join(solutions))
+# CHEAT SOLUTION CODE
+# solutions = sorted(str(sorted(solution.items())) for solution
+#                    in generate_and_test(crossword_puzzle))
+# print("\n".join(solutions))
 
 # TEST 1
 print(sorted(crossword_puzzle.var_domains['across1']))
