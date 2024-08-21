@@ -20,11 +20,20 @@ csp = CSP(
 #     ### COMPLETE ###
 # ]
 
-# TEST 1
-# print(len(relations))
-# print(all(type(r) is Relation for r in relations))
+# ANSWER RELATION
+relations = [
+    Relation(header=['a', 'b', 'c'],
+             tuples={(1, 0, 0), (2, 0, 0), (2, 0, 1), (2, 1, 0)}),
 
-# EXPECTED RESULT
+    Relation(header=['c', 'd'],
+             tuples={(1, 0), (2, 0), (2, 1)})
+]
+
+# TEST 1
+print(len(relations))
+print(all(type(r) is Relation for r in relations))
+
+# TEST 1 EXPECTED RESULT
 # 2
 # True
 
