@@ -4,11 +4,19 @@ from q1 import generate_and_test
 
 canterbury_colouring = CSP(
     # GOAL IS TO ADJUST THE DOMAIN TO PASS ALL TESTS
+    # ORIGINAL
+    # var_domains={
+    #     'christchurch': {'red', 'green'},
+    #     'selwyn': {'red', 'green'},
+    #     'waimakariri': {'red', 'green'},
+    #     },
+
+    # AFTER SOLVING BY HAND
     var_domains={
         'christchurch': {'red', 'green'},
         'selwyn': {'red', 'green'},
         'waimakariri': {'red', 'green'},
-        },
+    },
     constraints={
         lambda christchurch, waimakariri: christchurch != waimakariri,
         lambda christchurch, selwyn: christchurch != selwyn,

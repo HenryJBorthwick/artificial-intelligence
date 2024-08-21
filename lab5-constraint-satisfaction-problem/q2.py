@@ -4,15 +4,28 @@ from q1 import generate_and_test
 
 crossword_puzzle = CSP(
     # GOAL IS TO ADJUST THE DOMAIN TO PASS ALL TESTS
+    # ORIGINAL
+    # var_domains={
+    #     # read across:
+    #     'across1': set("ant big bus car has".split()),
+    #     'across3': set("book buys hold lane year".split()),
+    #     'across4': set("ant big bus car has".split()),
+    #     # read down:
+    #     'down1': set("book buys hold lane year".split()),
+    #     'down2': set("ginger search symbol syntax".split()),
+    #     },
+
+    # AFTER SOLVING BY HAND
     var_domains={
         # read across:
-        'across1': set("ant big bus car has".split()),
-        'across3': set("book buys hold lane year".split()),
-        'across4': set("ant big bus car has".split()),
+        'across1': set("bus has".split()),
+        'across3': set("lane year".split()),
+        'across4': set("ant car".split()),
         # read down:
-        'down1': set("book buys hold lane year".split()),
-        'down2': set("ginger search symbol syntax".split()),
-        },
+        'down1': set("buys hold".split()),
+        'down2': set("search syntax".split()),
+    },
+
     constraints={
         lambda across1, down1: across1[0] == down1[0],
         lambda down1, across3: down1[2] == across3[0],
