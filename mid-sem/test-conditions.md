@@ -25,10 +25,12 @@ How to turn off auto suggestions in visual studio?
 - stack
   - PUSH/APPEND 123
   - POP 321
+
 - queue
   - PUT/ENQUEUE 123
   - GET/DEQUEUE 123
-- dequeue
+  
+- dequeue (double ended queue)
   - APPEND 123
   - POP 321
   - POPLEFT 123
@@ -36,3 +38,7 @@ How to turn off auto suggestions in visual studio?
   - APPENDLEFT 321
   - POP 123
   - POPLEFT 321
+
+- heapq (priority queue)
+  - heappush (a, 1), (b, 2), (c, 3)
+  - heappop (a, 1), (b, 2), (c, 3)
