@@ -13,8 +13,18 @@ Python Docs
 - DFS frontier implementation
 - BFS frontier implementation
 
+## quiz2 - Cost-sensitive-search
+### skills
+- lcfs frontier trace with and without pruning
+- a* frontier trace with and without pruning
+- check for admissibility
+- check for consistency 
+- other theory things about algorithms
+- graph implementation (practice)
+  - outgoing_arcs function understanding
+- lcfs frontier implementation (practice)
 
-quiz2 - Cost-sensitive-search
+
 quiz3 - Propositional inference
 quiz4 - Declarative-programming
 
