@@ -1,6 +1,11 @@
-def alpha_beta_search(tree):
-    """Performs Alpha-Beta Pruning on a given game tree."""
+def alpha_beta_search_max(tree):
+    """Performs Alpha-Beta Pruning on a given game tree, starting with a maximizer at the root."""
     pruned_tree, pruning_events = max_value(tree, float('-inf'), float('inf'), [])
+    return pruned_tree, pruning_events
+
+def alpha_beta_search_min(tree):
+    """Performs Alpha-Beta Pruning on a given game tree, starting with a minimizer at the root."""
+    pruned_tree, pruning_events = min_value(tree, float('-inf'), float('inf'), [])
     return pruned_tree, pruning_events
 
 def max_value(tree, alpha, beta, pruning_events):
@@ -43,9 +48,17 @@ def min_value(tree, alpha, beta, pruning_events):
             return pruned_tree, pruning_events  # Prune remaining branches
     return pruned_tree, pruning_events
 
-# Running the updated alpha-beta pruning search on the tree
+
+# q3
 tree = [2, [-1, 5], [1, 3], 4]
-pruned_tree, pruning_events = alpha_beta_search(tree)
+pruned_tree, pruning_events = alpha_beta_search_max(tree)
+
+print("pruned game tree:", pruned_tree)
+print("pruning events:", pruning_events)
+
+# q5
+tree = [3, [[2, 1], [4, [7, -2]]], 0]
+pruned_tree, pruning_events = alpha_beta_search_min(tree)
 
 print("pruned game tree:", pruned_tree)
 print("pruning events:", pruning_events)
