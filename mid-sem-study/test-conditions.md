@@ -25,7 +25,13 @@ Python Docs
 - lcfs frontier implementation (practice)
 
 
-quiz3 - Propositional inference
+## quiz3 - Propositional inference
+### skills
+- truth proposition theory questions (practice)
+- implement interpretations generation
+- implement model generation
+
+
 quiz4 - Declarative-programming
 
 How to turn off auto suggestions in visual studio?
