@@ -27,9 +27,12 @@ Python Docs
 
 ## quiz3 - Propositional inference
 ### skills
-- truth proposition theory questions (practice)
+- truth proposition theory questions (practice) propositional formula
 - implement interpretations generation
 - implement model generation
+- truth proposition theory questions propositional definite clauses
+- implement forward deduce propositional definite clauses (facts, rules, atoms)
+- implement graph query propositional definite clauses
 
 
 quiz4 - Declarative-programming
