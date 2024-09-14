@@ -31,11 +31,14 @@ Python Docs
 - implement interpretations generation
 - implement model generation
 - truth proposition theory questions propositional definite clauses
+  - NOTE: a:-b means "a is true, if b is true" (Backwards implication)
 - implement forward deduce propositional definite clauses (facts, rules, atoms)
 - implement graph query propositional definite clauses
 
 
-quiz4 - Declarative-programming
+## quiz4 - Declarative-programming (prolog)
+### skills
+- 
 
 How to turn off auto suggestions in visual studio?
 
