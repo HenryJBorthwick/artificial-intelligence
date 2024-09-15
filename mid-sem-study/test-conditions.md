@@ -38,7 +38,10 @@ Python Docs
 
 ## quiz4 - Declarative-programming (prolog)
 ### skills
-- 
+- translate rules into english and english into rules
+- proof search
+- descendant relationship (child, parent implementations)
+- ascendent relationship (parent child implementations)
 
 How to turn off auto suggestions in visual studio?
 
