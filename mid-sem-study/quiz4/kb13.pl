@@ -11,7 +11,7 @@ preorder(tree(Root, Left, Right), [Root | Traversal]) :-
     preorder(Left, LeftTraversal),
     % Pre order traversal of rightsubtree
     preorder(Right, RightTraversal),
-    % Concatenates left and right traversal lists
+    % Concatenates left and right traversal lists using built in append
     append(LeftTraversal, RightTraversal, Traversal).
 
 
