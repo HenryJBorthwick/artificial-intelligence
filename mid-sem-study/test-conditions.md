@@ -41,8 +41,15 @@ Python Docs
 - translate rules into english and english into rules
 - proof search
 - descendant relationship (child, parent implementations)
-- ascendent relationship (parent child implementations)
+- ascendent relationship (parent, child implementations)
+- list extract
+- doubling list
+- translation lists (bidirectional)
+- preorder binary tree traversal (maybe inorder and postorder)
 
+## quiz 4+ - Extra declarative programming questions
+### skills
+- list swap
 How to turn off auto suggestions in visual studio?
 
 
