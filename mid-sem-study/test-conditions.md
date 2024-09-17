@@ -49,7 +49,16 @@ Python Docs
 
 ## quiz 4+ - Extra declarative programming questions
 ### skills
-- list swap
+- list element swap
+- implement append/3 without builtin (No clue)
+- reverse a list
+- prolog match regex of binary number
+- prolog DNA organizing
+- prolog list swap end elements (No clue)
+- 
+
+- NOTE: Some questions do not have hints...
+
 How to turn off auto suggestions in visual studio?
 
 

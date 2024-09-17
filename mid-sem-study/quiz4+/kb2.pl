@@ -1,4 +1,4 @@
-% prolog recursive list appending
+% prolog manual append/3 implementation
 
 % base case: empty list
 % []: Represents an empty list.
