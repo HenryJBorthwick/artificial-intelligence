@@ -17,3 +17,18 @@ class BFSFrontier(Frontier):
             return self.container.pop()
         else:
             raise StopIteration
+
+#test1
+flights = ExplicitGraph(nodes=['Christchurch', 'Auckland', 
+                               'Wellington', 'Gold Coast'],
+                        edge_list = [('Christchurch', 'Gold Coast'),
+                                 ('Christchurch','Auckland'),
+                                 ('Christchurch','Wellington'),
+                                 ('Wellington', 'Gold Coast'),
+                                 ('Wellington', 'Auckland'),
+                                 ('Auckland', 'Gold Coast')],
+                        starting_nodes = ['Christchurch'],
+                        goal_nodes = {'Gold Coast'})
+
+my_itinerary = next(generic_search(flights, BFSFrontier()), None)
+print_actions(my_itinerary)
