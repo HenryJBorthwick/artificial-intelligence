@@ -6,10 +6,13 @@ directlyIn(natasha, olga).
 directlyIn(olga, katarina).
 
 
-contains(X, Y) :- child(X, Y).
-contains(X, Y) :- child(X, Z), contains(Z, Y).
+% contains(X, Y) :- child(X, Y).
+% contains(X, Y) :- child(X, Z), contains(Z, Y).
 
-contains(X, Y) :- directlyIn(Y, X).
-contains(X, Y) :- directlyIn(Y, Z), contains(X, Z).
+% child(X, Y) :- directlyIn(Y, X).
 
-child(X, Y) :- directlyIn(Y, X).
+
+
+
+% contains(X, Y) :- directlyIn(Y, X).
+% contains(X, Y) :- directlyIn(Y, Z), contains(X, Z).

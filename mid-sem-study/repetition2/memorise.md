@@ -24,3 +24,11 @@ descendent(X, Y) :- child(X, Z), descendent(Z, Y).
 
 ansestor(X, Y) :- parent(Y, X).
 ansestor(X, Y) :- parent(Y, Z), ansestor(X, Z).
+
+consistent:
+each edge
+h(tail) <= h(head) + c(tail->head)
+
+admissible:
+each nodes optimal path to goal
+h(node) <= c(path(node->goal))
