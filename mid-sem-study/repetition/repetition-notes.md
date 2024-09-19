@@ -37,7 +37,21 @@
 - turn equation into english
   - conclusion, conditions
   - inverse implies
-
+- find the models
+- descendant/ascendent relationships
+- % ancestor definitions
+```
+% ancestor(X, Y) :- parent(X, Y).
+% ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+```
+- % descendant definitons
+```
+% descendant(X, Y) :- child(X, Y).
+% descendant(X, Y) :- child(X, Z), descendant(Z, Y).
+```
+- NOTE: Can use descendant and turn into acsendent using child(X, Y) :- parent(Y, X).
+- list doubler (do again)
+- translate (do again)
 
 
 # EXTRA
