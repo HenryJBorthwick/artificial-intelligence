@@ -5,38 +5,29 @@ preorder(tree(X, Left, Right), [X|Traversal]) :-
     preorder(Right, RightTraversal),
     append(LeftTraversal, RightTraversal, Traversal).
 
+
 inorder(leaf(X), [X]).
 inorder(tree(X, Left, Right), Traversal) :-
     inorder(Left, LeftTraversal),
     inorder(Right, RightTraversal),
     append(LeftTraversal, [X|RightTraversal], Traversal).
 
+
 postorder(leaf(X), [X]).
 postorder(tree(X, Left, Right), Traversal) :-
     postorder(Left, LeftTraversal),
     postorder(Right, RightTraversal),
-    append(LeftTraversal, RightTraversal, TempTraversal),
+    append(LeftTraversal, RightTraversal, TempTraversal)
     append(TempTraversal, [X], Traversal).
 
+desendent(X, Y) :- child(X, Y).
+desendent(X, Y) :- child(X, Z), desendent(Z, Y).
 
-descendent(X, Y) :- child(X, Y).
-descendent(X, Y) :- child(X, Z), descendent(Z, Y).
+asendent(X, Y) :- child(Y, X).
+asendent(X, Y) :- child(Y, Z), asendent(X, Z).
 
-ansestor(X, Y) :- parent(Y, X).
-ansestor(X, Y) :- parent(Y, Z), ansestor(X, Z).
+consistent
+h(tail) <= h(head) + c(tail->head) (Edge Cost)
 
-consistent:
-each edge
-h(tail) <= h(head) + c(tail->head)
-
-admissible:
-each nodes optimal path to goal
-h(node) <= c(path(node->goal))
-
-- PROLOG
-- Twice
-- Translate
-
-- Swap12
-- Binary
-- DNA
+admissible
+h(node) <= c(node->goal) (Optimal Path Cost)
