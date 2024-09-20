@@ -32,3 +32,10 @@ h(tail) <= h(head) + c(tail->head)
 admissible:
 each nodes optimal path to goal
 h(node) <= c(path(node->goal))
+
+- PROLOG
+- Twice
+- Translate
+
+- Swap12
+- Binary
