@@ -28,5 +28,16 @@ def n_queens_neighbours(state):
 
     return neighbours
 
-# test
+# tests
+print(n_queens_neighbours((1, 2)))
+
+print(n_queens_neighbours((1, 3, 2)))
+
+print(n_queens_neighbours((1, 2, 3)))
+
+print(n_queens_neighbours((1,)))
+
 print(n_queens_neighbours((1, 2, 3, 4, 5, 6, 7, 8)))
+
+for neighbour in n_queens_neighbours((2, 3, 1, 4)):
+    print(neighbour)

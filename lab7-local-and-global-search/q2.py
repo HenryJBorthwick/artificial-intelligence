@@ -21,7 +21,7 @@ def n_queens_cost(state):
 
     return conflicts
 
-# test
+# tests
 print(n_queens_cost((1, 2)))
 
 print(n_queens_cost((1, 3, 2)))
