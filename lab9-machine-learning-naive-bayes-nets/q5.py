@@ -1,5 +1,4 @@
 import csv
-import math
 
 def learn_prior(file_name, pseudo_count=0):
     with open(file_name) as in_file:
@@ -59,51 +58,58 @@ def learn_likelihood(file_name, pseudo_count=0):
     return likelihood
 
 
-def posterior(prior_spam, likelihood, input_vector):
-    # Initialize log probabilities with the log of prior probabilities
-    log_prob_spam = math.log(prior_spam)
-    log_prob_not_spam = math.log(1 - prior_spam)
-    
-    # Iterate over each feature in the input vector
-    for i in range(len(input_vector)):
-        # Current feature value (0 or 1)
-        xi = input_vector[i]  
-        
-        # Likelihoods for the current feature given each class
-        p_xi_given_not_spam, p_xi_given_spam = likelihood[i]
-        
-        if xi == 1:
-            # If feature is present, add log likelihoods
-            log_prob_spam += math.log(p_xi_given_spam)
-            log_prob_not_spam += math.log(p_xi_given_not_spam)
-        else:
-            # If feature is absent, add log of (1 - likelihood)
-            log_prob_spam += math.log(1 - p_xi_given_spam)
-            log_prob_not_spam += math.log(1 - p_xi_given_not_spam)
-    
-    # Exponentiate log probabilities to get back to probability scale
-    prob_spam = math.exp(log_prob_spam)
-    prob_not_spam = math.exp(log_prob_not_spam)
-    
-    # Normalize probabilities so they sum to 1
-    total_prob = prob_spam + prob_not_spam
-    posterior_spam = prob_spam / total_prob
-    posterior_not_spam = prob_not_spam / total_prob
-    
-    # Return posterior probabilities for both classes
-    return posterior_spam, posterior_not_spam
+def posterior(prior, likelihood, observation):
+    numerator_true = prior
+    numerator_false = 1 - prior
+
+    for i in range(len(observation)):
+        obs = observation[i]
+
+        p_xi_given_C_true = likelihood[i][True]
+        p_xi_given_C_false = likelihood[i][False]
+
+        if not obs:
+            p_xi_given_C_true = 1 - p_xi_given_C_true
+            p_xi_given_C_false = 1 - p_xi_given_C_false
+
+        numerator_true *= p_xi_given_C_true
+        numerator_false *= p_xi_given_C_false
+
+    denominator = numerator_true + numerator_false
+    posterior_true = numerator_true / denominator  
+
+    return posterior_true
 
 
 def nb_classify(prior, likelihood, input_vector):
-    # Ensure all features are integers
-    input_vector = [int(x) for x in input_vector] 
-
-    posterior_spam, posterior_not_spam = posterior(prior, likelihood, input_vector)
-
+    # Ensure input_vector elements are integers (0 or 1)
+    input_vector = [int(x) for x in input_vector]
+    
+    # Convert the input vector elements to booleans (True or False)
+    observation = [bool(x) for x in input_vector]
+    
+    # Compute the posterior probability of Class=True (Spam)
+    posterior_spam = posterior(prior, likelihood, observation)
+    
+    # The posterior probability of Not Spam is 1 - posterior_spam
+    posterior_not_spam = 1 - posterior_spam
+    
+    # Determine the predicted class and certainty
     if posterior_spam > posterior_not_spam:
-        return ("Spam", posterior_spam)
+        # If posterior probability of spam is higher, classify as 'Spam'
+        label = "Spam"
+        certainty = posterior_spam
+    elif posterior_spam < posterior_not_spam:
+        # If posterior probability of not spam is higher, classify as 'Not Spam'
+        label = "Not Spam"
+        certainty = posterior_not_spam
     else:
-        return ("Not Spam", posterior_not_spam)
+        # If probabilities are equal, default to 'Not Spam' as per the requirement
+        label = "Not Spam"
+        certainty = posterior_not_spam
+    
+    # Return the predicted label and the certainty
+    return (label, certainty)
 
 
 #test
