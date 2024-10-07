@@ -4,18 +4,17 @@ def random_expression(function_symbols, leaves, max_depth):
     # base case, if max_depth is 0, return a random leaf node
     if max_depth == 0:
         return random.choice(leaves)
-    
-    # decide randomly whether to return a leaf or a function application
-    # increase probability of leaves as we reach max_depth
-    probability_of_leaf = max_depth / (max_depth + 1)
-    if random.random() < probability_of_leaf:
-        return random.choice(leaves)
     else:
-        # recursive case, create a function application
-        func_symbol = random.choice(function_symbols)
-        left_expr = random_expression(function_symbols, leaves, max_depth - 1)
-        right_expr = random_expression(function_symbols, leaves, max_depth - 1)
-        return [func_symbol, left_expr, right_expr]
+        # decide randomly whether to return a leaf or a function application
+        # increase probability of leaves as we reach max_depth
+        if random.choice([True, False]):
+            return random.choice(leaves)
+        else:
+            # recursive case, create a function application
+            func_symbol = random.choice(function_symbols)
+            left_expr = random_expression(function_symbols, leaves, max_depth - 1)
+            right_expr = random_expression(function_symbols, leaves, max_depth - 1)
+            return [func_symbol, left_expr, right_expr]
 
 
 # HELPER FUNCTIONS
@@ -72,8 +71,6 @@ expressions = [random_expression(function_symbols, leaves, max_depth)
                for _ in range(10000)]
 
 # Out of 10000 expressions, at least 1000 must be distinct
-# check_distinctness(expressions)
-
 expressions = [str(random_expression(function_symbols, leaves, max_depth))
                for _ in range(10000)]
 distinct_expressions = set(expressions)
@@ -93,8 +90,6 @@ expressions = [random_expression(function_symbols, leaves, max_depth)
 
 # Out of 10000 expressions, there must be at least 100 expressions
 # of depth 0, 100 of depth 1, ..., and 100 of depth 4.
-
-# _check_diversity(expressions, max_depth)
 depth_counts = {}
 for expr in expressions:
     expr_depth = depth(expr)
