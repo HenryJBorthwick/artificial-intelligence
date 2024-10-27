@@ -36,7 +36,7 @@ network = {
 }
 
 
-
+#### ENSURE EACH PROBABILITY IS UNIQUE
 
 # test
 # Checking the overall type-correctness of the network

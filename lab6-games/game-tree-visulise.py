@@ -23,7 +23,9 @@ def print_game_tree(tree, depth=0, is_max=True):
 
 
 # q5
-game_tree = [3, [[2, 1], [4, [7, -2]]], 0]
+# game_tree = [3, [[2, 1], [4, [7, -2]]], 0]
+
+game_tree = [0, [-1, 1], [1, -1, 1]]
 
 # Print the game tree with min/max layers
 print_game_tree(game_tree)
