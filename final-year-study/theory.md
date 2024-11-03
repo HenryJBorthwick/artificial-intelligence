@@ -51,3 +51,5 @@
 - Halts every finite graph with no zero cost cycles and uses a admissible heuristic function
 - Effected by goal sate?
 - Pruning does not effect a consistent heuristic function, does effect a admissible by no longer ensuring it will find optimal solution.
+
+- NOTE: LCFS = A* if heuristic function produces 0 or same as cost of path. Probably have to just trace by hand
