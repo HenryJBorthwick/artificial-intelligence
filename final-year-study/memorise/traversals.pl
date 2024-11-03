@@ -4,18 +4,16 @@ preorder(tree(X, Left, Right), [X|Traversal]) :-
     preorder(Right, RightTraversal),
     append(LeftTraversal, RightTraversal, Traversal).
 
-
 inorder(leaf(X), [X]).
 inorder(tree(X, Left, Right), Traversal) :-
     inorder(Left, LeftTraversal),
     inorder(Right, RightTraversal),
     append(LeftTraversal, [X|RightTraversal], Traversal).
 
-
 postorder(leaf(X), [X]).
 postorder(tree(X, Left, Right), Traversal) :-
     postorder(Left, LeftTraversal),
-    postorder(Right, RightTraversal),
+    postorder(Right, RightTraversal),   
     append(LeftTraversal, RightTraversal, TempTraversal),
     append(TempTraversal, [X], Traversal).
 
@@ -48,6 +46,7 @@ test_preorder :-
     test_preorder_complex_tree,
     test_preorder_specific_output.
 
+
 % --- In-order Tests ---
 
 % Test 1: Single Leaf Node
@@ -76,6 +75,7 @@ test_inorder :-
     test_inorder_leaf_a,
     test_inorder_complex_tree,
     test_inorder_specific_output.
+
 
 % --- Post-order Tests ---
 

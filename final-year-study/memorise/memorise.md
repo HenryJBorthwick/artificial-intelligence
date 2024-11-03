@@ -31,3 +31,11 @@ h(tail) <= h(head) + c(tail->head) (Edge Cost)
 
 admissible
 h(node) <= c(node->goal) (Optimal Path Cost)
+
+Network Update
+(Variable_True + SudoCount) / (Variable_Parent_Condition + SudoCount * number of states)
+
+Binary Update
+Activation = w * i + b >= 0 then y=1
+Error = t - y = 0 then no update
+Calculate Weight and Bias

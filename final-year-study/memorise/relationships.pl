@@ -1,14 +1,14 @@
-desendent(X, Y) :- child(X, Y).
-desendent(X, Y) :- child(X, Z), desendent(Z, Y).
+desendent(X,Y) :- child(X,Y).
+desendent(X,Y) :- child(X,Z), desendent(Z, Y).
 
-asendent(X, Y) :- child(Y, X).
-asendent(X, Y) :- child(Y, Z), asendent(X, Z).
+ascendent(X, Y) :- child(Y, X).
+ascendent(X, Y) :- child(Y, Z), ascendent(X, Z).
 
 
 % --- Asendent Tests ---
-% child(irina, natasha).
-% child(natasha, olga).
-% child(olga, katarina).
+child(irina, natasha).
+child(natasha, olga).
+child(olga, katarina).
 
 test_child_irina_natasha :-
     child(irina, natasha),
@@ -23,19 +23,19 @@ test_child_irina_olga :-
 % OK
 
 test_asendent_katarina_irina :-
-    asendent(katarina, irina),
+    ascendent(katarina, irina),
     writeln('OK').
 % Expected Output:
 % OK
 
 test_asendent_katarina_natasha :-
-    asendent(katarina, natasha),
+    ascendent(katarina, natasha),
     writeln('OK').
 % Expected Output:
 % OK
 
 test_contains_all_asendent_irina :-
-    findall(P, asendent(P, irina), Output),
+    findall(P, ascendent(P, irina), Output),
     sort(Output, SortedOutput),
     foreach(member(X,SortedOutput), (write(X), nl)).
 % Expected Output:
@@ -43,7 +43,7 @@ test_contains_all_asendent_irina :-
 % natasha
 % olga
 
-test_asendent :-
+test_ascendent :-
     test_child_irina_natasha,
     test_child_irina_olga,
     test_asendent_katarina_irina,
