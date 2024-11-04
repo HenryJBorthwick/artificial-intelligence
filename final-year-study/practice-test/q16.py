@@ -12,7 +12,7 @@ pruning_events = [
 # technique:
 # check terminal node, if so return for min or max
 # perform min or max update value 
-# check for pruning
+# check for pruning (alpha >= beta)
 
 # lab6, q5, tree:
 """

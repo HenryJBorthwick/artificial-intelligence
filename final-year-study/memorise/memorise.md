@@ -32,6 +32,10 @@ h(tail) <= h(head) + c(tail->head) (Edge Cost)
 admissible
 h(node) <= c(node->goal) (Optimal Path Cost)
 
+Alpha-beta
+No pruning check on terminal nodes
+Drawing trees from brackets
+
 Network Update
 (Variable_True + SudoCount) / (Variable_Parent_Condition + SudoCount * number of states)
 
