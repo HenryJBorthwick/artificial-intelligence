@@ -12,9 +12,7 @@ def knn_predict(input, examples, distance, combine, k):
     distances.sort()
 
     # select k neighbors
-    selected_neighbors = []
-    for i in range(k):
-        selected_neighbors.append(distances[i])
+    selected_neighbors = distances[:k]
 
     # tie breaking
     index = k
@@ -62,3 +60,47 @@ def majority_element(labels):
             majority_label = label
 
     return majority_label
+
+
+
+examples = [
+    ([2], '-'),
+    ([3], '-'),
+    ([5], '+'),
+    ([8], '+'),
+    ([9], '+'),
+]
+
+distance = euclidean_distance
+combine = majority_element
+
+for k in range(1, 6, 2):
+    print("k =", k)
+    print("x", "prediction")
+    for x in range(0,10):
+        print(x, knn_predict([x], examples, distance, combine, k))
+    print()
+
+
+# using knn for predicting numeric values
+
+examples = [
+    ([1], 5),
+    ([2], -1),
+    ([5], 1),
+    ([7], 4),
+    ([9], 8),
+]
+
+def average(values):
+    return sum(values) / len(values)
+
+distance = euclidean_distance
+combine = average
+
+for k in range(1, 6, 2):
+    print("k =", k)
+    print("x", "prediction")
+    for x in range(0,10):
+        print("{} {:4.2f}".format(x, knn_predict([x], examples, distance, combine, k)))
+    print()

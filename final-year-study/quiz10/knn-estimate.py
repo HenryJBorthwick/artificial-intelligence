@@ -1,6 +1,3 @@
-
-# observations = (time, temperature)
-
 def estimate(time, observations, k):
     # compute distance
     distances = []
@@ -12,9 +9,7 @@ def estimate(time, observations, k):
     distances.sort()
 
     # select k neighbors
-    selected_neighbors = []
-    for i in range(k):
-        selected_neighbors.append(distances[i])
+    selected_neighbors = distances[:k]
         
     # tie break
     index = k
@@ -31,6 +26,13 @@ def estimate(time, observations, k):
     average_temp = sum(outputs) / len(outputs)
 
     return average_temp
+
+# knn
+# compute distance, use provided function if needed
+# sort distance
+# select k neighbors
+# tie break
+# extract selected neighbors, apply function or compute output
 
 
 observations = [
