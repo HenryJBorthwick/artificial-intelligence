@@ -72,7 +72,7 @@ select r < norm_cum_fit
 
 belief networks:
 P(Variable=True|Parent=True or False)
-b influences e = b -> e = parent -> variable
+b influences e = b -> e = parent -> variable, parent is influencer
 
 belief networks laplacian:
 P(var_parent_condition + sudocount) / (parent_condition + sudocount * number states)
