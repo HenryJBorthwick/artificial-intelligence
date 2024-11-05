@@ -35,51 +35,64 @@ h(tail) <= h(head) + cost(tail->head) (edge cost)
 admissibility:
 h(node) <= cost(node->goal) (optimal path cost)
 
-weight update:
-Activation = (w1 * x1) + (w2 * x2) + b >= 1 then y = 0
+csp gac:
+draw constraint
+check for satisfaction
+if eliminate, add to TODO set if not first time
+process todo if need be
+carry over edited domains where possible
+
+csp relations:
+find all possible combinations that satisfy constraint
+
+csp variable elimination:
+get all constraints with variable to eliminate
+perform intersection between constraints for variables
+join the tuples where the intersection of variables are equal
+remove the variable to be eliminated from tuple
+
+min-max:
+check terminal
+init util
+loop through tree
+get util
+compare util and update if better
+return best util
+update knowing that game_tree has action, util not just util now
+
+alpha-beta:
+no update on terminal nodes
+
+ea:
+compute fitness
+compute cum_fit
+compute total fitness
+compute norm_cum_fit
+select r < norm_cum_fit
+
+belief networks:
+P(Variable=True|Parent=True or False)
+b influences e = b -> e = parent -> variable
+
+belief networks laplacian:
+P(var_parent_condition + sudocount) / (parent_condition + sudocount * number states)
+
+knn:
+compute input distance, 
+add distance, output tuple
+sort distance
+select k neighbors
+updating k neighbors with tie breaking
+extract distance, output from k_neighbors
+add output to outputs
+compute combine/predicted final answer from k_neighbors
+
+perceptron weight update:
+WRITE OUT EACH STEP OF WORKING PLZ
+write out each number (weight, input, bias, t, n)
+Activation = (w1 * x1) + (w2 * x2) + b >= 0 then y = 1
 Error = t - y = 0 then no update
 w_new = w_old * n*x1 * Error
 b_new = b_old * n * Error
-
-# csp gac
-# draw constraint
-# check for satisfaction
-# if eliminate, add to TODO set if not first time
-# process todo if need be
-# carry over edited domains where possible
-
-# csp relations
-# find all possible combinations that satisfy constraint
-
-# csp variable elimination 
-# get all constraints with variable to eliminate
-# perform intersection between constraints for variables
-# join the tuples where the intersection of variables are equal
-# remove the variable to be eliminated from tuple
-
-# min-max
-# check terminal
-# init util
-# loop through tree
-# get util
-# compare util and update if better
-# return best util
-# update knowing that game_tree has action, util not just util now
-
-# alpha-beta
-# no update on terminal nodes
-
-# ea
-# compute fitness
-# compute cum_fit
-# compute total fitness
-# compute norm_cum_fit
-# select r < norm_cum_fit
-
-# belief networks
-# P(Variable=True|Parent=True or False)
-# b influences e = b -> e = parent -> variable
-
-# belief networks laplacian
-# P(var_parent_condition + sudocount) / (parent_condition + sudocount * number states)
+write out new weight and new bias
 
