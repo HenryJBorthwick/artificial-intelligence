@@ -1,14 +1,14 @@
-desendent(X,Y) :- child(X,Y).
-desendent(X,Y) :- child(X,Z), desendent(Z, Y).
+descendent(X,Y) :- child(X,Y).
+descendent(X,Y) :- child(X,Z), descendent(Z,Y).
 
-ascendent(X, Y) :- child(Y, X).
-ascendent(X, Y) :- child(Y, Z), ascendent(X, Z).
+ascendent(X,Y) :- child(Y,X).
+ascendent(X,Y) :- child(Y,Z), ascendent(X,Z).
 
 
 % --- Asendent Tests ---
-child(irina, natasha).
-child(natasha, olga).
-child(olga, katarina).
+% child(irina, natasha).
+% child(natasha, olga).
+% child(olga, katarina).
 
 test_child_irina_natasha :-
     child(irina, natasha),
@@ -59,19 +59,19 @@ child(e, d).
 
 
 test_child_a_c :- 
-    desendent(a, c),
+    descendent(a, c),
     writeln('OK').
 % Expected Output:
 % OK
 
 
-test_desedemt_a_e :- 
-    desendent(a, X),
-    desendent(e, X),
+test_descendent_a_e :- 
+    descendent(a, X),
+    descendent(e, X),
     writeln(X).
 % Expected Output:
 % d
 
-test_desendent :-
+test_descendent :-
     test_child_a_c,
-    test_desedemt_a_e.
+    test_descendent_a_e.

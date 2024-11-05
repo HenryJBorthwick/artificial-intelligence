@@ -13,7 +13,7 @@ inorder(tree(X, Left, Right), Traversal) :-
 postorder(leaf(X), [X]).
 postorder(tree(X, Left, Right), Traversal) :-
     postorder(Left, LeftTraversal),
-    postorder(Right, RightTraversal),   
+    postorder(Right, RightTraversal),
     append(LeftTraversal, RightTraversal, TempTraversal),
     append(TempTraversal, [X], Traversal).
 
