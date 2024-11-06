@@ -1,35 +1,40 @@
-def estimate(time, observations, k):
-    # compute distance from input and data input
-    distances = []
-    for data_input_time, data_output_temperature in observations:
-        # add using distance, data output tuples
-        # FORGOT abs()
-        dist = abs(time - data_input_time)
-        distances.append((dist, data_output_temperature))
+# knn:
+# Compute distance between input and input data
+# Add to distance, output data tuple
+# sort distances
+# get k_neighbors from distance
+# tie break k_neighbors, update their distances
+# extract distance, output data from k_neighbors and compute outcomes
+# use function/combine to compute prediction
 
-    # FORGOT THIS
+def estimate(time, observations, k):
+    # compute distance
+    distances = []
+    for data_input, data_output in observations:
+        dist = abs(time-data_input)
+        distances.append((dist, data_output))
+
+    # sort distances
     distances.sort()
 
-    # get k_neighbors
+    # get k_neighbors from distance
     k_neighbors = distances[:k]
 
-    # tie break k_neighbors distance
+    # tie break k_neighbors and add distances
     index = k
     while index < len(distances) and distances[index][0] == distances[k-1][0]:
         k_neighbors.append(distances[index])
-        #FORGOT THIS
         index += 1
-    
-    # loop through k_neighbors and generate output
-    outputs = []
-    for distances, data_output_tempe in k_neighbors:
-        outputs.append(data_output_tempe)
 
-    # compute temperature estimate from k_neighbors
-    prediction = sum(outputs) / len(outputs)
+    # extract output from k_neighbors
+    output = []
+    for time_distances, temp_data in k_neighbors:
+        output.append(temp_data)
+
+    # compute final prediction for temp
+    prediction = sum(output) / len(output)
 
     return prediction
-
 
 
 observations = [

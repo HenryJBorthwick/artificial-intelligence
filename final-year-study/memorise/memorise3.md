@@ -87,5 +87,3 @@ alpha-beta:
 do not perform prune check on terminal nodes
 
 
-local, global search theory:
-- local used for optimization problems
